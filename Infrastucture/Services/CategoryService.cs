@@ -39,6 +39,5 @@ public class CategoryService
      var query = @"update categories set name = @NewName where id = @CategoryId";
       var res =   conn.Execute(query, new{NewName = newName,CategoryId = categoryId});
           return res==0? "Can not update" : "updated";
-    }
-
+    }   
 }
