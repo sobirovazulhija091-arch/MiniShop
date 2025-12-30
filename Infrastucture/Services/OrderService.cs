@@ -20,9 +20,9 @@ public class OrderService
     }
     public List<OrderItem> GetOrder()
     {
-             using var conn = new NpgsqlConnection(connString);
+        using var conn = new NpgsqlConnection(connString);
         conn.Open();
-        var query = "select  * from orders ";
+        var query = "select  * from orders";
         return conn.Query<OrderItem>(query).ToList();
     }
     public Order GetById(int orderid)
@@ -41,5 +41,4 @@ public class OrderService
           return res==0? "Can not delete" : "deleted";
     }
 
- 
 }

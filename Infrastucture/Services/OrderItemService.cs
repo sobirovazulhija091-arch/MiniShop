@@ -1,8 +1,5 @@
 using Npgsql;
 using Dapper;
-
-   
-
 public class OrderItemService 
 {
     private string connString = "Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
@@ -10,8 +7,8 @@ public class OrderItemService
     {
         using var conn = new NpgsqlConnection(connString);
         conn.Open();
-        var query = @"insert into orderitems (quantity, createdat,price) values (@quantity,@price)";
-        conn.Execute(query, new { quantitys = orderItem.Quantity, price= orderItem.Price });
+        var query = @"insert into orderitems (quantity, createdat,price) values (@quantity)";
+        conn.Execute(query, new { quantitys = orderItem.Quantity });
     }
     public string DeleteItem(int orderitemid)
     {
@@ -43,4 +40,5 @@ public class OrderItemService
         var res = conn.Execute(query, new { Newprice = newprice, Orderitemid = orderitemid });
         return res == 0 ? "Can not update" : "updated";
     }
+
 }
