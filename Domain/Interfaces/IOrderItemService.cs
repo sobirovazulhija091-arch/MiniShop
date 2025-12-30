@@ -1,8 +1,8 @@
 public interface IOrderItemService
 {
-      public void AddOrderItem(OrderItem orderItem);
-      public string DeleteOrderItem(int orderitemid);
-      public string UpdateOrderItem(int orderitemid,string newprice);
-       public list<OrderItem> GetAll();
+      public void AddItem(OrderItem orderItem);
+      public string DeleteItem(int orderitemid);
+      public string UpdateItem(int orderitemid,string newprice);
+       public List<OrderItem> GetAllitem();
        public OrderItem GetById(int orderid);
 }

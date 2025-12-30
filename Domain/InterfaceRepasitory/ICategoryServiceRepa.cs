@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-namespace Domain.InterfaceRepasitory {
+
 public interface ICategoryServiceRepa
 {
       List<Category> AddCategory(Category category);
@@ -7,5 +7,4 @@ public interface ICategoryServiceRepa
        Category UpdateCategory(int categoryid,string newname);
         List<Category> GetAll();
         Category GetById(int categoryid);
-}
 }
