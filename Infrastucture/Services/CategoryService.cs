@@ -1,14 +1,14 @@
 using Npgsql;
 using Dapper;
-public class CategoryService : ICategoryService
+public class CategoryService 
 {
     private  string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
     public void AddCategory(Category category)
     {
         using var conn = new NpgsqlConnection(connString);
         conn.Open();
-        var query = @"insert into categories (name, createdat) values (@Name, @CreatedAt)";
-                      conn.Execute(query, new{Name=category.Name,CreateAt=category.CreatedAt});
+        var query = @"insert into categories (name, createdat) values (@name)";
+                      conn.Execute(query, new{name=category.Name});
     }
     public string DeleteCategory(int categoryId)
     {
