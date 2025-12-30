@@ -2,8 +2,7 @@ using Npgsql;
 using Dapper;
 public class CategoryService : ICategoryService
 {
-    private readonly string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
-
+    private  string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
     public void AddCategory(Category category)
     {
         using var conn = new NpgsqlConnection(connString);
@@ -42,5 +41,4 @@ public class CategoryService : ICategoryService
           return res==0? "Can not update" : "updated";
     }
 
-   
 }

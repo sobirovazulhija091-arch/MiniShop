@@ -2,7 +2,7 @@ using Npgsql;
 using Dapper;
 public class ProductService : IProductService
 {
-     private readonly string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
+     private  string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
     public void AddProduct(Product product)
     {
          using var conn = new NpgsqlConnection(connString);

@@ -3,8 +3,7 @@ using Dapper;
 using System.Security.Cryptography.X509Certificates;
 public class OrderService : IOrderService
 {
-    private readonly string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
-
+    private  string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
     public void AddOrder(Order order)
     {
         using var conn = new NpgsqlConnection(connString);
@@ -12,7 +11,7 @@ public class OrderService : IOrderService
         var query = @"insert into orders (status, createdat,totalprice) values (@Status, @CreatedAt,@TotalPrice)";
                       conn.Execute(query, new{Status=order.Status,CreateAt=order.CreatedAt,TotalPrice=order.Totalprice});
     }
-   
+
    public string UpdateOrder(int orderid, string newstatus)
     {
          using var conn = new NpgsqlConnection(connString);
