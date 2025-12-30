@@ -1,23 +1,44 @@
+
+
 public class CategoryService : ICategoryService
 {
+    private readonly string connString ="Host=localhost;Port=5432;Database=minimarket;Username=postgres;Password=1234";
+
     public void AddCategory(Category category)
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = @"insert into categories (name, createdat) values (@Name, @CreatedAt)";
+                      conn.Execute(query, new{Name=category.Name,CreateAt=category.CreatedAt});
     }
-    public string DeleteCategory(int categoryid)
+    public void DeleteCategory(int categoryId)
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "delete from  categories where id = @CategoryId";
+        conn.Execute(query, new { CategoryId = categoryId });
+
     }
-    public void GetAll()
+    public List<Category> GetAll()
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "select  * from categories";
+        return conn.Query<Category>(query).ToList();
     }
-    public void GetById()
+
+    public Category GetById(int categoryId)
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "select * from categories where id = @CategoryId";
+        return conn.QueryFirstOrDefault<Category>(query, new { CategoryId = categoryId });
     }
-    public string UpdateCategory(int categoryid, string newname)
+    public void UpdateCategory(int categoryId, string newName)
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+     var query = @"update categories set name = @NewName where id = @CategoryId";
+        conn.Execute(query, new{NewName = newName,CategoryId = categoryId});
     }
 }

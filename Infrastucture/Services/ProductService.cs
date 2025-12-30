@@ -2,22 +2,37 @@ public class ProductService : IProductService
 {
     public void AddProduct(Product product)
     {
-        throw new NotImplementedException();
+         using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = @"insert into products (name, createdat,price) values (@Name, @CreatedAt,@Price)";
+                      conn.Execute(query, new{Name=product.Name,CreateAt=product.CreatedAt,Price=product.Price});
     }
    public string DeleteProduct(int productid)
     {
-        throw new NotImplementedException();
+     using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "delete from  products where id = @Productid";
+        conn.Execute(query, new { Productid = productid });
     }
-    public void GetAll()
+    public list<Product> GetAll()
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "select  * from products";
+        return conn.Query<Product>(query).ToList();
     }
-    public void GetById()
+    public Product GetById(int productid)
     {
-        throw new NotImplementedException();
+         using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "select * from products where id = @Productid";
+        return conn.QueryFirstOrDefault<Product>(query, new { Productid = productid });
     }
     public string UpdateProduct(int productid, decimal newprice)
     {
-        throw new NotImplementedException();
+         using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+     var query = @"update products set price = @Newprice where id = @Productid";
+        conn.Execute(query, new{Newprice=newprice,Productid=productid});
     }
 }

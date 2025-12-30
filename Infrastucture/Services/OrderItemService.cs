@@ -2,22 +2,37 @@ public class OrderItemService : IOrderItemService
 {
     public void AddOrderItem(OrderItem orderItem)
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = @"insert into orderitems (quantity, createdat,price) values (@Quantity, @CreatedAt,@Price)";
+                      conn.Execute(query, new{Quantity=orderItem.Quantity,CreateAt=category.CreatedAt});
     }
     public string DeleteOrderItem(int orderitemid)
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "delete from  orderitems where id = @Orderitemid";
+        conn.Execute(query, new { Orderitemid = orderitemid });
     }
-    public void GetAll()
+    public list<OrderItem> GetAll()
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "select  * from orderitems";
+        return conn.Query<OrderItem>(query).ToList();
     }
-    public void GetById()
+    public OrderItem GetById(int orderitemid)
     {
-        throw new NotImplementedException();
+        using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+        var query = "select * from orderitems where id = @Orderitemid";
+        return conn.QueryFirstOrDefault<OrderItem>(query, new { Orderitemid = orderitemid });
     }
-    public string UpdateOrderItem(int categoryid, string newname)
+    public string UpdateOrderItem(int orderitemid,string newprice)
     {
-        throw new NotImplementedException();
+       using var conn = new NpgsqlConnection(connString);
+        conn.Open();
+     var query = @"update orderitems set price = @Newprice  where id = @Orderitemid";
+        conn.Execute(query, new{Newprice=newprice,Orderitemid=orderitemid})
     }
 }

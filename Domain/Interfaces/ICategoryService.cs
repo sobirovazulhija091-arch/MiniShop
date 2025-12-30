@@ -4,5 +4,5 @@ public interface ICategoryService
       public string DeleteCategory(int categoryid);
       public string UpdateCategory(int categoryid,string newname);
        public void GetAll();
-       public void GetById();
+       public void GetById(int categoryid);
 }
